@@ -1,0 +1,17 @@
+.checkout-title {
+  text-align: center;
+  padding: 15px 15px;
+}
+.items-row {
+  margin-bottom: 5px;
+}
+.headers {
+  margin-bottom: 10px;
+}
+.checkout-grand-total {
+  font-size: 20px;
+  font-weight: bold;
+}
+.header-title {
+  padding: 5px 5px;
+}
