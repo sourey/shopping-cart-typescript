@@ -1,11 +1,14 @@
-import { Row, Col } from "antd";
+import { Row, Col,Button } from "antd";
 import React from "react";
 import { connect } from "react-redux";
 import { product } from "../Home/Home";
 import "./Checkout.css";
+import {removeFromCart} from '../../ducks/productsDuck'
+import { DeleteOutlined } from '@ant-design/icons';
 
 export interface Props {
   cartItems: [];
+  removeFromCart:any
 }
 
 class Checkout extends React.Component<Props> {
@@ -14,6 +17,10 @@ class Checkout extends React.Component<Props> {
       return acc + obj.quantity! * obj.price;
     }, 0);
     return sum.toFixed(2);
+  };
+
+  handleRemoveFromCart = (productId: number) => {
+    this.props.removeFromCart(productId);
   };
 
   render() {
@@ -70,6 +77,15 @@ class Checkout extends React.Component<Props> {
                 <Col span={4} className="checkout-title product-title">
                   ${item.quantity! * item.price}
                 </Col>
+                <Col span={4} className="checkout-title product-title">
+                <Button
+                    type="primary"
+                    shape="round"
+                    icon={<DeleteOutlined />}
+                    onClick={() => this.handleRemoveFromCart(item.id)}
+                    className="remove-item"
+                  ></Button>
+                </Col>
               </Row>
             </Col>
             <Col span={2}></Col>
@@ -99,4 +115,7 @@ const mapStateToProps = (state: any, props: any) => ({
   cartItems: state.cartItems,
 });
 
-export default connect(mapStateToProps, null)(Checkout);
+const mapActionToProps={
+    removeFromCart
+}
+export default connect(mapStateToProps, mapActionToProps)(Checkout);
